@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/gorillalogic/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/ecb6e1f8e4b0e84c4b886c2f14a1500caf309757/gson-2.3.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="/Users/gorillalogic/Desktop/anil_p/SJ/quiz_app/git_code/DemoQuiz/app/build/intermediates/pre-dexed/debug/gson-2.3.1-6f563116923a042915b25b46b5975192e2938275.jar" />
+    </item>
+    <item
+        jar="/Users/gorillalogic/GorillaLogic/Android/sdk_studio/extras/android/m2repository/com/android/support/support-annotations/22.2.0/support-annotations-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="/Users/gorillalogic/Desktop/anil_p/SJ/quiz_app/git_code/DemoQuiz/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.0-f4bb98704173a258a81e6a89c19a73449cf4cdc9.jar" />
+    </item>
+    <item
+        jar="/Users/gorillalogic/Desktop/anil_p/SJ/quiz_app/git_code/DemoQuiz/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
+        <dex dex="/Users/gorillalogic/Desktop/anil_p/SJ/quiz_app/git_code/DemoQuiz/app/build/intermediates/pre-dexed/debug/classes-43672517a6ae4032b424397c69877980c5f14db7.jar" />
+    </item>
+    <item
+        jar="/Users/gorillalogic/Desktop/anil_p/SJ/quiz_app/git_code/DemoQuiz/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="/Users/gorillalogic/Desktop/anil_p/SJ/quiz_app/git_code/DemoQuiz/app/build/intermediates/pre-dexed/debug/classes-573b8ccfeb82dae92bd7cabde53784bd729de8ad.jar" />
+    </item>
+    <item
+        jar="/Users/gorillalogic/Desktop/anil_p/SJ/quiz_app/git_code/DemoQuiz/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/22.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="c6d79137693d494dee16372d3921f919eb724ced">
+        <dex dex="/Users/gorillalogic/Desktop/anil_p/SJ/quiz_app/git_code/DemoQuiz/app/build/intermediates/pre-dexed/debug/classes-6e325e884a4b2e1ad191ee9fb049736e3c78cda4.jar" />
+    </item>
+    <item
+        jar="/Users/gorillalogic/Desktop/anil_p/SJ/quiz_app/git_code/DemoQuiz/app/build/intermediates/exploded-aar/de.hdodenhof/circleimageview/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="ac6948cce36f694f3eb3d73a135e298dc4b3527a">
+        <dex dex="/Users/gorillalogic/Desktop/anil_p/SJ/quiz_app/git_code/DemoQuiz/app/build/intermediates/pre-dexed/debug/classes-965d1ef20eaf5e3cea38b9c51330bccd36ae5cd2.jar" />
+    </item>
+    <item
+        jar="/Users/gorillalogic/Desktop/anil_p/SJ/quiz_app/git_code/DemoQuiz/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/libs/internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="/Users/gorillalogic/Desktop/anil_p/SJ/quiz_app/git_code/DemoQuiz/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-7ef3ad90ee36a0861afb9f8af8c209114f536811.jar" />
+    </item>
+
+</items>
