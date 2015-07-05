@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.intimation.demoquiz.model.Question;
+
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 

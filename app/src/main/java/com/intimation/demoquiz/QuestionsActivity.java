@@ -13,23 +13,27 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.intimation.demoquiz.adapters.NavigationDrawerAdapter;
 import com.intimation.demoquiz.adapters.SelectionAdapter;
+import com.intimation.demoquiz.custom.MyListView;
 import com.intimation.demoquiz.model.Data;
-import com.intimation.demoquiz.model.ModelClassMapper;
 import com.intimation.demoquiz.model.Question;
-import com.intimation.demoquiz.model.Questions;
 import com.intimation.demoquiz.rest.OnPostExecuteListener;
 import com.intimation.demoquiz.rest.RestApi;
+import com.intimation.demoquiz.utils.ImageLoaderUtil;
 import com.intimation.demoquiz.utils.Utils;
 
 import java.util.ArrayList;
@@ -57,6 +61,7 @@ public class QuestionsActivity extends ActionBarActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_qpage);
+        ImageLoaderUtil.ConfigureImageLoader(this);
 
         mQNo = 0;
         mTimeLeftValue = (TextView)findViewById(R.id.time_left);
@@ -96,8 +101,19 @@ public class QuestionsActivity extends ActionBarActivity implements View.OnClick
 
     private void setCurrentQuestion(Question q) {
         Data.getInstance().setCurrentQuestion(q);
-        ((TextView)findViewById(R.id.question)).setText(q.question);
-        ((TextView)findViewById(R.id.question_number)).setText((mQNo+1) + " of " + mQuestions.size());
+        TextView question_text = (TextView) findViewById(R.id.question);
+        ImageView question_image = (ImageView) findViewById(R.id.question_image);
+        if (q.question.contains(Utils.PREFIX_IMAGE)) {
+            question_image.setVisibility(View.VISIBLE);
+            question_text.setVisibility(View.GONE);
+            ImageLoaderUtil.displayImage(question_image, q.question);
+        } else {
+            question_image.setVisibility(View.GONE);
+            question_text.setVisibility(View.VISIBLE);
+            question_text.setText(q.question);
+        }
+        ((TextView) findViewById(R.id.question_number)).setText(q.qNo + " of " + mQuestions.size());
+        ((TextView)findViewById(R.id.question_paper)).setText(q.subject);
     }
 
     private void startTimer() {
@@ -140,8 +156,29 @@ public class QuestionsActivity extends ActionBarActivity implements View.OnClick
 
     private void timeUp() {
         Data.getInstance().setQuestions(mQuestions);
-        finish();
         // show result page
+        showResults();
+    }
+
+    private void showResults() {
+        findViewById(R.id.qpage).setVisibility(View.GONE);
+        findViewById(R.id.result_page).setVisibility(View.VISIBLE);
+
+        ((TextView)findViewById(R.id.topic)).setText(mQuestions.get(0).subject);
+        ((TextView)findViewById(R.id.total_q)).setText("" + mQuestions.size());
+        ((TextView)findViewById(R.id.total_marks)).setText("" + (mQuestions.size()*3));
+
+        int a=0, u=0, c=0, w=0;
+        for (Question q : mQuestions) {
+            a = q.isAnswered() ? a+1 : a;
+            u = !q.isAnswered() ? u+1 : u;
+            c = q.isAnswerCorrect() ? c+1 : c;
+            w = q.isAnswered() && !q.isAnswerCorrect() ? w+1 : w;
+        }
+        ((TextView)findViewById(R.id.attempted)).setText("" + a);
+        ((TextView)findViewById(R.id.unattended)).setText("" + u);
+        ((TextView)findViewById(R.id.correct_answers)).setText("" + c);
+        ((TextView)findViewById(R.id.wrong_answers)).setText("" + w);
     }
 
     private void updateTimerText(String time) {
@@ -155,6 +192,7 @@ public class QuestionsActivity extends ActionBarActivity implements View.OnClick
                 mQuestionsLayout.startAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left));
                 if (++mQNo < mQuestions.size()) {
                     setCurrentQuestion(mQuestions.get(mQNo));
+                    showChoice(mQuestions.get(mQNo));
                 } else {
                     timeUp();
                 }
@@ -222,10 +260,16 @@ public class QuestionsActivity extends ActionBarActivity implements View.OnClick
     }
 
     private void showChoice(Question question) {
-        ListView optionsListview = (ListView) findViewById(R.id.listview_options);
-        SelectionAdapter adapter = new SelectionAdapter(this, Arrays.asList(question.ch1, question.ch2, question.ch3, question.ch4));
+        MyListView optionsListview = (MyListView) findViewById(R.id.listview_options);
+        SelectionAdapter adapter = new SelectionAdapter(this, question.options);
         optionsListview.setAdapter(adapter);
         optionsListview.setOnItemClickListener(this);
+        optionsListview.post(new Runnable() {
+            @Override
+            public void run() {
+                ((ScrollView)findViewById(R.id.parent_scrollview)).fullScroll(View.FOCUS_UP);
+            }
+        });
     }
 
     private void logout() {
@@ -243,12 +287,11 @@ public class QuestionsActivity extends ActionBarActivity implements View.OnClick
     }
 
     @Override
-    public void onSuccess(ModelClassMapper model) {
-        ArrayList<Question> questions = ((Questions) model).questions;
-        Data.getInstance().setQuestions(questions);
-        mQuestions = questions;
-        setCurrentQuestion(mQuestions.get(mQNo));
-        showChoice(mQuestions.get(mQNo));
+    public void onSuccess() {
+        mQuestions = Data.getInstance().getAllQuestions();
+        Question current = mQuestions.get(mQNo);
+        setCurrentQuestion(current);
+        showChoice(current);
         startTimer();
     }
 
@@ -262,6 +305,9 @@ public class QuestionsActivity extends ActionBarActivity implements View.OnClick
         SelectionAdapter adapter = (SelectionAdapter)adapterView.getAdapter();
         adapter.setSelectedItemPosition(i);
         adapter.notifyDataSetChanged();
+
+        Question current = mQuestions.get(mQNo);
+        current.setSelectedChoice(i);
     }
 
     @Override

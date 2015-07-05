@@ -16,26 +16,26 @@ import java.net.URL;
  * Created by gorillalogic on 6/12/15.
  */
 public class Api {
-    private static Reader mReader;
+    private static InputStream mInStream;
 
-    public static Reader getData(String url) {
-        InputStream in = null;
+    public static InputStream getData(String url) {
         try {
             URL httpUrl = new URL(url);
             HttpURLConnection connection = (HttpURLConnection) httpUrl.openConnection();
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(20000);
+            connection.addRequestProperty("Content-Type", "text/xml");
             connection.connect();
             Log.i(".RestApi", "Response code = " + connection.getResponseCode());
             if (connection.getResponseCode() == 200) {
-                in = new BufferedInputStream(connection.getInputStream());
-                mReader = new InputStreamReader(in);
+                mInStream = new BufferedInputStream(connection.getInputStream());
+//                mReader = new InputStreamReader(in);
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return mReader;
+        return mInStream;
     }
 }

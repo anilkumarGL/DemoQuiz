@@ -1,6 +1,7 @@
 package com.intimation.demoquiz.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.intimation.demoquiz.R;
+import com.intimation.demoquiz.utils.ImageLoaderUtil;
+import com.intimation.demoquiz.utils.Utils;
 
 import java.util.List;
 
@@ -54,12 +57,21 @@ public class SelectionAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.item = (TextView) view.findViewById(R.id.item);
             holder.radioButton = (ImageView) view.findViewById(R.id.radioButton);
+            holder.item_image = (ImageView) view.findViewById(R.id.item_image);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
         }
-
-        holder.item.setText(mItems.get(i));
+        String option = mItems.get(i);
+        if (option.contains(Utils.PREFIX_IMAGE)) {
+            ImageLoaderUtil.displayImage(holder.item_image, option);
+            holder.item.setVisibility(View.GONE);
+            holder.item_image.setVisibility(View.VISIBLE);
+        } else {
+            holder.item.setText(option);
+            holder.item.setVisibility(View.VISIBLE);
+            holder.item_image.setVisibility(View.GONE);
+        }
         holder.radioButton.setImageResource(mSelection == i ? R.drawable.radio_button_enabled : R.drawable.radio_button_disabled);
 
         return view;
@@ -67,6 +79,6 @@ public class SelectionAdapter extends BaseAdapter {
 
     private class ViewHolder {
         TextView item;
-        ImageView radioButton;
+        ImageView radioButton, item_image;
     }
 }

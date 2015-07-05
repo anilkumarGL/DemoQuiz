@@ -8,6 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="20dp"
         android:src="@drawable/radio_button_disabled"/>
 
@@ -16,5 +17,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@id/radioButton"
-        />
+        android:textColor="@android:color/black"/>
+
+    <ImageView
+        android:id="@+id/item_image"
+        android:layout_width="96dp"
+        android:layout_height="72dp"
+        android:layout_alignParentLeft="true"/>
 </RelativeLayout>

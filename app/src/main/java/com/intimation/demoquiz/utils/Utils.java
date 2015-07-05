@@ -5,7 +5,8 @@ package com.intimation.demoquiz.utils;
  */
 public class Utils {
 
-    public static final String URL_VIEW_QUESTION = "http://www.intimationsoftware.com/ws/questionbank/viewquestion.php?topicid=1&clientid=1&appid=1";
+    public static final String URL_VIEW_QUESTION = "http://www.qppacket.com/StudentPages/qpPacketDailyTest.xml";
+    public static final String PREFIX_IMAGE = "http://qppacket.com/QPIMages/";
 
     public static String getTotalTime(int no) {
         int minutes = no * 1;
