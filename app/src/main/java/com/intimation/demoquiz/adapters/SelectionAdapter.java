@@ -22,7 +22,7 @@ public class SelectionAdapter extends BaseAdapter {
 
     private List<String> mItems;
     private Context mContext;
-    private int mSelection;
+    private int mSelection=-1;
 
     public SelectionAdapter(Context context, List<String> items) {
         super();

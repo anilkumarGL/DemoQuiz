@@ -18,6 +18,8 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -56,6 +58,8 @@ public class QuestionsActivity extends ActionBarActivity implements View.OnClick
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private RecyclerView mRecyclerView;
+    WebView webView;
+    int num1, num2, num3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,6 +183,20 @@ public class QuestionsActivity extends ActionBarActivity implements View.OnClick
         ((TextView)findViewById(R.id.unattended)).setText("" + u);
         ((TextView)findViewById(R.id.correct_answers)).setText("" + c);
         ((TextView)findViewById(R.id.wrong_answers)).setText("" + w);
+
+        showPieChart(c, w, u);
+    }
+
+    private void showPieChart(int c, int w, int u) {
+        num1 = c;
+        num2 = w;
+        num3 = u;
+
+        webView = (WebView)findViewById(R.id.graph_webview);
+        webView.addJavascriptInterface(new WebAppInterface(), "Android");
+
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("file:///android_asset/pie.html");
     }
 
     private void updateTimerText(String time) {
@@ -260,7 +278,7 @@ public class QuestionsActivity extends ActionBarActivity implements View.OnClick
     }
 
     private void showChoice(Question question) {
-        MyListView optionsListview = (MyListView) findViewById(R.id.listview_options);
+        final MyListView optionsListview = (MyListView) findViewById(R.id.listview_options);
         SelectionAdapter adapter = new SelectionAdapter(this, question.options);
         optionsListview.setAdapter(adapter);
         optionsListview.setOnItemClickListener(this);
@@ -328,5 +346,25 @@ public class QuestionsActivity extends ActionBarActivity implements View.OnClick
         }
         if (mDrawerLayout != null)
             mDrawerLayout.closeDrawers();
+    }
+
+
+    public class WebAppInterface {
+
+        @JavascriptInterface
+        public int getNum1() {
+            return num1;
+        }
+
+        @JavascriptInterface
+        public int getNum2() {
+            return num2;
+        }
+
+        @JavascriptInterface
+        public int getNum3() {
+            return num3;
+        }
+
     }
 }

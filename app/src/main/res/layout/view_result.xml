@@ -23,14 +23,14 @@
         <TextView
             android:id="@+id/topic_title"
             android:layout_width="128dp"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_height="@dimen/text_height_result_page"
             android:textColor="@android:color/black"
             android:text="Topic"
             android:gravity="center_vertical"/>
         <TextView
             android:id="@+id/topic_hyphen"
             android:layout_width="48dp"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_height="@dimen/text_height_result_page"
             android:textColor="@android:color/black"
             android:text="-"
             android:layout_toRightOf="@id/topic_title"
@@ -38,7 +38,7 @@
         <TextView
             android:id="@+id/topic"
             android:layout_width="128dp"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_height="@dimen/text_height_result_page"
             android:textColor="@android:color/black"
             android:text="Topic"
             android:gravity="center_vertical"
@@ -48,7 +48,7 @@
         <TextView
             android:id="@+id/total_q_title"
             android:layout_width="128dp"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_height="@dimen/text_height_result_page"
             android:textColor="@android:color/black"
             android:text="Total Questions"
             android:gravity="center_vertical"
@@ -56,7 +56,7 @@
         <TextView
             android:id="@+id/total_q_hyphen"
             android:layout_width="48dp"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_height="@dimen/text_height_result_page"
             android:textColor="@android:color/black"
             android:text="-"
             android:layout_toRightOf="@id/total_q_title"
@@ -65,7 +65,7 @@
         <TextView
             android:id="@+id/total_q"
             android:layout_width="128dp"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_height="@dimen/text_height_result_page"
             android:textColor="@android:color/black"
             android:text="Topic"
             android:gravity="center_vertical"
@@ -76,7 +76,7 @@
         <TextView
             android:id="@+id/total_marks_title"
             android:layout_width="128dp"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_height="@dimen/text_height_result_page"
             android:textColor="@android:color/black"
             android:text="Total Marks"
             android:gravity="center_vertical"
@@ -84,7 +84,7 @@
         <TextView
             android:id="@+id/total_marks_hyphen"
             android:layout_width="48dp"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_height="@dimen/text_height_result_page"
             android:textColor="@android:color/black"
             android:text="-"
             android:layout_toRightOf="@id/total_marks_title"
@@ -93,7 +93,7 @@
         <TextView
             android:id="@+id/total_marks"
             android:layout_width="128dp"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_height="@dimen/text_height_result_page"
             android:textColor="@android:color/black"
             android:text="Topic"
             android:gravity="center_vertical"
@@ -104,7 +104,7 @@
         <TextView
             android:id="@+id/attempted_title"
             android:layout_width="128dp"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_height="@dimen/text_height_result_page"
             android:textColor="@android:color/black"
             android:text="Attempted"
             android:gravity="center_vertical"
@@ -112,7 +112,7 @@
         <TextView
             android:id="@+id/attempted_hyphen"
             android:layout_width="48dp"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_height="@dimen/text_height_result_page"
             android:textColor="@android:color/black"
             android:text="-"
             android:layout_toRightOf="@id/attempted_title"
@@ -121,7 +121,7 @@
         <TextView
             android:id="@+id/attempted"
             android:layout_width="128dp"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_height="@dimen/text_height_result_page"
             android:textColor="@android:color/black"
             android:text="Topic"
             android:gravity="center_vertical"
@@ -132,7 +132,7 @@
         <TextView
             android:id="@+id/correct_answers_title"
             android:layout_width="128dp"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_height="@dimen/text_height_result_page"
             android:textColor="@android:color/black"
             android:text="Correct Answers"
             android:gravity="center_vertical"
@@ -140,7 +140,7 @@
         <TextView
             android:id="@+id/correct_answers_hyphen"
             android:layout_width="48dp"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_height="@dimen/text_height_result_page"
             android:textColor="@android:color/black"
             android:text="-"
             android:layout_toRightOf="@id/correct_answers_title"
@@ -149,7 +149,7 @@
         <TextView
             android:id="@+id/correct_answers"
             android:layout_width="128dp"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_height="@dimen/text_height_result_page"
             android:textColor="@android:color/black"
             android:text="Topic"
             android:gravity="center_vertical"
@@ -160,7 +160,7 @@
         <TextView
             android:id="@+id/wrong_answers_title"
             android:layout_width="128dp"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_height="@dimen/text_height_result_page"
             android:textColor="@android:color/black"
             android:text="Wrong Answers"
             android:gravity="center_vertical"
@@ -168,7 +168,7 @@
         <TextView
             android:id="@+id/wrong_answers_hyphen"
             android:layout_width="48dp"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_height="@dimen/text_height_result_page"
             android:textColor="@android:color/black"
             android:text="-"
             android:layout_toRightOf="@id/wrong_answers_title"
@@ -177,7 +177,7 @@
         <TextView
             android:id="@+id/wrong_answers"
             android:layout_width="128dp"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_height="@dimen/text_height_result_page"
             android:textColor="@android:color/black"
             android:text="Topic"
             android:gravity="center_vertical"
@@ -188,7 +188,7 @@
         <TextView
             android:id="@+id/unattended_title"
             android:layout_width="128dp"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_height="@dimen/text_height_result_page"
             android:textColor="@android:color/black"
             android:text="Unattended"
             android:gravity="center_vertical"
@@ -196,7 +196,7 @@
         <TextView
             android:id="@+id/unattended_hyphen"
             android:layout_width="48dp"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_height="@dimen/text_height_result_page"
             android:textColor="@android:color/black"
             android:text="-"
             android:layout_toRightOf="@id/unattended_title"
@@ -205,7 +205,7 @@
         <TextView
             android:id="@+id/unattended"
             android:layout_width="128dp"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_height="@dimen/text_height_result_page"
             android:textColor="@android:color/black"
             android:text="Topic"
             android:gravity="center_vertical"
@@ -220,6 +220,20 @@
         android:layout_below="@id/result_content"
         android:background="@android:color/holo_orange_dark"/>
 
+    <WebView
+        android:id="@+id/graph_webview"
+        android:layout_width="match_parent"
+        android:layout_height="256dp"
+        android:layout_below="@id/separator1"
+        android:background="@android:color/white"></WebView>
+
+    <View
+        android:id="@+id/separator2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/graph_webview"
+        android:background="@android:color/holo_orange_dark"/>
+
     <TextView
         android:id="@+id/info"
         android:layout_width="wrap_content"
@@ -227,6 +241,6 @@
         android:textColor="@android:color/black"
         android:text="Correct answer scores 3 marks and wrong answer deduct 1 mark"
         android:gravity="center_vertical"
-        android:layout_below="@id/separator1"
+        android:layout_below="@id/separator2"
         android:padding="15dp"/>
 </RelativeLayout>
