@@ -10,6 +10,7 @@ public class Data {
 
     private List<Question> mQuestions;
     private Question mQuestion;
+    private String mUsername;
 
     private Data() {}
 
@@ -31,7 +32,15 @@ public class Data {
         return mQuestion;
     }
 
+    public String getUsername() {
+        return mUsername.isEmpty() ? "Username" : mUsername;
+    }
+
     public void setCurrentQuestion(Question q) {
         mQuestion = q;
+    }
+
+    public void setUsername(String username) {
+        mUsername = username;
     }
 }

@@ -239,7 +239,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
-        android:text="Correct answer scores 3 marks and wrong answer deduct 1 mark"
+        android:text="Correct answer scores 1 mark and wrong answer deduct 0.25 marks"
         android:gravity="center_vertical"
         android:layout_below="@id/separator2"
         android:padding="15dp"/>

@@ -1,5 +1,6 @@
 package com.intimation.demoquiz;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
@@ -7,10 +8,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.intimation.demoquiz.model.Data;
 import com.intimation.demoquiz.model.Question;
 
 
-public class MainActivity extends ActionBarActivity implements View.OnClickListener {
+public class MainActivity extends Activity implements View.OnClickListener {
 
     private View mLogin, mSplash;
 
@@ -42,6 +44,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_login:
+                String username = ((EditText)findViewById(R.id.username)).getText().toString();
+                Data.getInstance().setUsername(username);
                 login();
                 break;
         }
@@ -53,7 +57,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     private void showQuestionsScreen() {
         Intent i = new Intent(this, QuestionsActivity.class);
-        i.putExtra("username", ((EditText)findViewById(R.id.username)).getText().toString());
         startActivity(i);
     }
 }

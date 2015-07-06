@@ -1,34 +1,19 @@
 package com.intimation.demoquiz;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.intimation.demoquiz.adapters.NavigationDrawerAdapter;
 import com.intimation.demoquiz.adapters.SelectionAdapter;
 import com.intimation.demoquiz.custom.MyListView;
 import com.intimation.demoquiz.model.Data;
@@ -38,8 +23,6 @@ import com.intimation.demoquiz.rest.RestApi;
 import com.intimation.demoquiz.utils.ImageLoaderUtil;
 import com.intimation.demoquiz.utils.Utils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -47,7 +30,7 @@ import java.util.TimerTask;
 /**
  * Created by gorillalogic on 7/1/15.
  */
-public class QuestionsActivity extends ActionBarActivity implements View.OnClickListener, OnPostExecuteListener, AdapterView.OnItemClickListener, NavigationDrawerAdapter.OnItemClickListener {
+public class QuestionsActivity extends NavigationDrawerActivity implements View.OnClickListener, OnPostExecuteListener, AdapterView.OnItemClickListener {
 
     private List<Question> mQuestions;
     private TextView mTimeLeftValue;
@@ -55,9 +38,7 @@ public class QuestionsActivity extends ActionBarActivity implements View.OnClick
     private Timer mTimer;
     private int hh, mm, ss;
     private int mQNo;
-    private ActionBarDrawerToggle mDrawerToggle;
-    private DrawerLayout mDrawerLayout;
-    private RecyclerView mRecyclerView;
+
     WebView webView;
     int num1, num2, num3;
 
@@ -75,20 +56,6 @@ public class QuestionsActivity extends ActionBarActivity implements View.OnClick
         initializeNavigationDrawer();
         updateTimerText("--:--:--");
         getQuestionsFromServer();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            if (mDrawerLayout.isDrawerVisible(mRecyclerView))
-                mDrawerLayout.closeDrawer(mRecyclerView);
-            else
-                mDrawerLayout.openDrawer(mRecyclerView);
-        } else {
-            mDrawerLayout.closeDrawers();
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -117,7 +84,6 @@ public class QuestionsActivity extends ActionBarActivity implements View.OnClick
             question_text.setText(q.question);
         }
         ((TextView) findViewById(R.id.question_number)).setText(q.qNo + " of " + mQuestions.size());
-        ((TextView)findViewById(R.id.question_paper)).setText(q.subject);
     }
 
     private void startTimer() {
@@ -170,7 +136,6 @@ public class QuestionsActivity extends ActionBarActivity implements View.OnClick
 
         ((TextView)findViewById(R.id.topic)).setText(mQuestions.get(0).subject);
         ((TextView)findViewById(R.id.total_q)).setText("" + mQuestions.size());
-        ((TextView)findViewById(R.id.total_marks)).setText("" + (mQuestions.size()*3));
 
         int a=0, u=0, c=0, w=0;
         for (Question q : mQuestions) {
@@ -183,6 +148,7 @@ public class QuestionsActivity extends ActionBarActivity implements View.OnClick
         ((TextView)findViewById(R.id.unattended)).setText("" + u);
         ((TextView)findViewById(R.id.correct_answers)).setText("" + c);
         ((TextView)findViewById(R.id.wrong_answers)).setText("" + w);
+        ((TextView)findViewById(R.id.total_marks)).setText("" + (c*Utils.CORRECT_ANSWER_MARKS + (w*Utils.WRONG_ANSWER_MARKS)));
 
         showPieChart(c, w, u);
     }
@@ -234,49 +200,6 @@ public class QuestionsActivity extends ActionBarActivity implements View.OnClick
         }
     }
 
-    private void initializeNavigationDrawer() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name) {
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                Log.i(".Exampl", "onDrawerOpened()");
-                mDrawerToggle.syncState();
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-                Log.i(".Exampl", "onDrawerClosed()");
-                mDrawerToggle.syncState();
-            }
-        };
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-        mDrawerLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mDrawerToggle.syncState();
-            }
-        });
-
-        setSupportActionBar(toolbar);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        String username = getIntent().getStringExtra("username");
-        NavigationDrawerAdapter adapter = new NavigationDrawerAdapter(
-                Arrays.asList("Home", "FAQ", "Pricing", "News", "Contact Us")
-                , username.isEmpty() ? "" : username
-                , "test_user@gmail.com"
-        );
-        adapter.setOnItemClickListener(this);
-        mRecyclerView.setAdapter(adapter);
-    }
-
     private void showChoice(Question question) {
         final MyListView optionsListview = (MyListView) findViewById(R.id.listview_options);
         SelectionAdapter adapter = new SelectionAdapter(this, question.options);
@@ -288,20 +211,6 @@ public class QuestionsActivity extends ActionBarActivity implements View.OnClick
                 ((ScrollView)findViewById(R.id.parent_scrollview)).fullScroll(View.FOCUS_UP);
             }
         });
-    }
-
-    private void logout() {
-        new AlertDialog.Builder(this)
-                .setTitle("Logout!")
-                .setMessage("Are you sure?")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
-                    }
-                })
-                .setNegativeButton(android.R.string.cancel, null)
-                .show();
     }
 
     @Override
@@ -327,27 +236,6 @@ public class QuestionsActivity extends ActionBarActivity implements View.OnClick
         Question current = mQuestions.get(mQNo);
         current.setSelectedChoice(i);
     }
-
-    @Override
-    public void onItemClick(View v, int position) {
-        switch (position) {
-            case 0:
-                // Logout
-                logout();
-                break;
-
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-                Toast.makeText(this, ((TextView)v.findViewById(R.id.item_text)).getText().toString() + " selected.", Toast.LENGTH_SHORT).show();
-                break;
-        }
-        if (mDrawerLayout != null)
-            mDrawerLayout.closeDrawers();
-    }
-
 
     public class WebAppInterface {
 
