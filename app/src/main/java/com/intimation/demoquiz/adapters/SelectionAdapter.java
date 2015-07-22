@@ -1,7 +1,7 @@
 package com.intimation.demoquiz.adapters;
 
 import android.content.Context;
-import android.util.Log;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.intimation.demoquiz.R;
-import com.intimation.demoquiz.utils.ImageLoaderUtil;
-import com.intimation.demoquiz.utils.Utils;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -23,11 +23,13 @@ public class SelectionAdapter extends BaseAdapter {
     private List<String> mItems;
     private Context mContext;
     private int mSelection=-1;
+    private File IMG_DOWNLOAD_DIR;
 
     public SelectionAdapter(Context context, List<String> items) {
         super();
         mItems = items;
         mContext = context;
+        IMG_DOWNLOAD_DIR = context.getExternalFilesDir(null) != null ? context.getExternalFilesDir(null) : context.getCacheDir();
     }
 
     public void setSelectedItemPosition(int pos) {
@@ -63,8 +65,9 @@ public class SelectionAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
         String option = mItems.get(i);
-        if (option.contains(Utils.PREFIX_IMAGE)) {
-            ImageLoaderUtil.displayImage(holder.item_image, option);
+        if (option.contains(IMG_DOWNLOAD_DIR.getAbsolutePath())) {
+            Uri uri = Uri.fromFile(new File(option));
+            Picasso.with(mContext).load(uri).into(holder.item_image);
             holder.item.setVisibility(View.GONE);
             holder.item_image.setVisibility(View.VISIBLE);
         } else {

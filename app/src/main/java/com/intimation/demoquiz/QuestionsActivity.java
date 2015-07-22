@@ -2,6 +2,7 @@ package com.intimation.demoquiz;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -18,11 +19,13 @@ import com.intimation.demoquiz.adapters.SelectionAdapter;
 import com.intimation.demoquiz.custom.MyListView;
 import com.intimation.demoquiz.model.Data;
 import com.intimation.demoquiz.model.Question;
+import com.intimation.demoquiz.model.Store;
 import com.intimation.demoquiz.rest.OnPostExecuteListener;
 import com.intimation.demoquiz.rest.RestApi;
-import com.intimation.demoquiz.utils.ImageLoaderUtil;
 import com.intimation.demoquiz.utils.Utils;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -41,13 +44,14 @@ public class QuestionsActivity extends NavigationDrawerActivity implements View.
 
     WebView webView;
     int num1, num2, num3;
+    private File IMG_DOWNLOAD_DIR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_qpage);
-        ImageLoaderUtil.ConfigureImageLoader(this);
 
+        IMG_DOWNLOAD_DIR = getExternalFilesDir(null) != null ? getExternalFilesDir(null) : getCacheDir();
         mQNo = 0;
         mTimeLeftValue = (TextView)findViewById(R.id.time_left);
         mQuestionsLayout = (RelativeLayout) findViewById(R.id.questions_layout);
@@ -74,10 +78,11 @@ public class QuestionsActivity extends NavigationDrawerActivity implements View.
         Data.getInstance().setCurrentQuestion(q);
         TextView question_text = (TextView) findViewById(R.id.question);
         ImageView question_image = (ImageView) findViewById(R.id.question_image);
-        if (q.question.contains(Utils.PREFIX_IMAGE)) {
+        if (q.question.contains(IMG_DOWNLOAD_DIR.getAbsolutePath())) {
             question_image.setVisibility(View.VISIBLE);
             question_text.setVisibility(View.GONE);
-            ImageLoaderUtil.displayImage(question_image, q.question);
+            Uri uri = Uri.fromFile(new File(q.question));
+            Picasso.with(QuestionsActivity.this).load(uri).into(question_image);
         } else {
             question_image.setVisibility(View.GONE);
             question_text.setVisibility(View.VISIBLE);
@@ -89,8 +94,12 @@ public class QuestionsActivity extends NavigationDrawerActivity implements View.
     private void startTimer() {
         mTimer = new Timer();
 
-        ss = 60;
-        mm = mQuestions.size() * 1;
+        Store store = new Store(this);
+        // total_time in seconds.
+        long total_time = mQuestions.size() * store.getAverageTimePerQuestion();
+
+        ss = (int) (total_time % 60);
+        mm = (int) (total_time / 60);
         hh = 0;
         if (mm > 59) {
             hh = mm / 60;
@@ -134,7 +143,6 @@ public class QuestionsActivity extends NavigationDrawerActivity implements View.
         findViewById(R.id.qpage).setVisibility(View.GONE);
         findViewById(R.id.result_page).setVisibility(View.VISIBLE);
 
-        ((TextView)findViewById(R.id.topic)).setText(mQuestions.get(0).subject);
         ((TextView)findViewById(R.id.total_q)).setText("" + mQuestions.size());
 
         int a=0, u=0, c=0, w=0;
@@ -148,7 +156,10 @@ public class QuestionsActivity extends NavigationDrawerActivity implements View.
         ((TextView)findViewById(R.id.unattended)).setText("" + u);
         ((TextView)findViewById(R.id.correct_answers)).setText("" + c);
         ((TextView)findViewById(R.id.wrong_answers)).setText("" + w);
-        ((TextView)findViewById(R.id.total_marks)).setText("" + (c*Utils.CORRECT_ANSWER_MARKS + (w*Utils.WRONG_ANSWER_MARKS)));
+
+        Store store = new Store(this);
+        ((TextView) findViewById(R.id.total_marks)).setText("" + (c * store.getCorrectAnswerMark() + (w * store.getWrongAnswerMark())));
+        ((TextView) findViewById(R.id.info)).setText("Correct answer scores " + ((int)store.getCorrectAnswerMark()) + " mark and wrong answer deduct " + ((int)store.getWrongAnswerMark()) + " mark");
 
         showPieChart(c, w, u);
     }

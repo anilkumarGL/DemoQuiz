@@ -23,13 +23,11 @@ public class Api {
             URL httpUrl = new URL(url);
             HttpURLConnection connection = (HttpURLConnection) httpUrl.openConnection();
             connection.setRequestMethod("GET");
-            connection.setConnectTimeout(20000);
+            connection.setConnectTimeout(10000);
             connection.addRequestProperty("Content-Type", "text/xml");
             connection.connect();
-            Log.i(".RestApi", "Response code = " + connection.getResponseCode());
             if (connection.getResponseCode() == 200) {
                 mInStream = new BufferedInputStream(connection.getInputStream());
-//                mReader = new InputStreamReader(in);
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();

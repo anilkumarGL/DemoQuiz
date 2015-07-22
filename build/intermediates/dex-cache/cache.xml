@@ -2,11 +2,11 @@
 <items version="2" >
 
     <item
-        jar="/Users/gorillalogic/Desktop/anil_p/SJ/DemoQuiz/git_new/DemoQuiz/app/libs/universal-image-loader-1.9.2-SNAPSHOT-with-sources.jar"
+        jar="/Users/gorillalogic/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.2/7446d06ec8d4f7ffcc53f1da37c95f200dcb9387/picasso-2.5.2.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="3526df34297bab9b9cc33d93d6e68f60fc2f94ea">
-        <dex dex="/Users/gorillalogic/Desktop/anil_p/SJ/DemoQuiz/git_new/DemoQuiz/app/build/intermediates/pre-dexed/debug/universal-image-loader-1.9.2-SNAPSHOT-with-sources-3fe2bdcfb8d402d33e1244a09096afc6677d6532.jar" />
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="/Users/gorillalogic/Desktop/anil_p/SJ/DemoQuiz/git_new/DemoQuiz/app/build/intermediates/pre-dexed/debug/picasso-2.5.2-9623bdc1a32fab297598d4aca46275cb866bf811.jar" />
     </item>
 
 </items>
