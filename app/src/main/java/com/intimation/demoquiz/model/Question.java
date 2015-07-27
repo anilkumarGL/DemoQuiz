@@ -18,6 +18,7 @@ public class Question {
     public List<String> options = new ArrayList<>();
     public int correctch; // options index.
     public String subject;
+    private boolean isVerified;
 
     private int mSelectedChoice = -1;
 
@@ -31,6 +32,14 @@ public class Question {
 
     public boolean isAnswerCorrect() {
         return mSelectedChoice == correctch;
+    }
+
+    public boolean isVerified() {
+        return isVerified;
+    }
+
+    public void setVerified(boolean isVerified) {
+        this.isVerified = isVerified;
     }
 
     public static Question parseJson(JSONObject data) {

@@ -9,6 +9,7 @@ import android.view.animation.AnimationUtils;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -37,7 +38,9 @@ public class QuestionsActivity extends NavigationDrawerActivity implements View.
 
     private List<Question> mQuestions;
     private TextView mTimeLeftValue;
+    private Button check_button;
     private RelativeLayout mQuestionsLayout;
+    private MyListView optionsListview;
     private Timer mTimer;
     private int hh, mm, ss;
     private int mQNo;
@@ -55,6 +58,8 @@ public class QuestionsActivity extends NavigationDrawerActivity implements View.
         mQNo = 0;
         mTimeLeftValue = (TextView)findViewById(R.id.time_left);
         mQuestionsLayout = (RelativeLayout) findViewById(R.id.questions_layout);
+        check_button = (Button) findViewById(R.id.check);
+        check_button.setOnClickListener(this);
         findViewById(R.id.finish).setOnClickListener(this);
         findViewById(R.id.next).setOnClickListener(this);
         initializeNavigationDrawer();
@@ -89,6 +94,10 @@ public class QuestionsActivity extends NavigationDrawerActivity implements View.
             question_text.setText(q.question);
         }
         ((TextView) findViewById(R.id.question_number)).setText(q.qNo + " of " + mQuestions.size());
+    }
+
+    private void enableCheckButton(boolean enable) {
+        check_button.setAlpha(enable ? 1.0f : 0.4f);
     }
 
     private void startTimer() {
@@ -191,6 +200,7 @@ public class QuestionsActivity extends NavigationDrawerActivity implements View.
                 } else {
                     timeUp();
                 }
+                optionsListview.setOnItemClickListener(this);
                 break;
 
             case R.id.finish:
@@ -207,12 +217,31 @@ public class QuestionsActivity extends NavigationDrawerActivity implements View.
                         .show();
                 break;
 
+            case R.id.check:
+                Question current = mQuestions.get(mQNo);
+                if (!current.isAnswered())
+                    Toast.makeText(this, "Please answer the question first!", Toast.LENGTH_SHORT).show();
+                else if (current.isVerified())
+                    Toast.makeText(this, "This answer is already verified!", Toast.LENGTH_SHORT).show();
+                else
+                    verify(current);
+
+                enableCheckButton(!current.isVerified() && current.isAnswered());
+                break;
 
         }
     }
 
+    private void verify(Question current) {
+        current.setVerified(true);
+        SelectionAdapter adapter = (SelectionAdapter)optionsListview.getAdapter();
+        adapter.setVerify(current.isVerified(), current.isAnswerCorrect());
+        adapter.notifyDataSetChanged();
+        optionsListview.setOnItemClickListener(null);
+    }
+
     private void showChoice(Question question) {
-        final MyListView optionsListview = (MyListView) findViewById(R.id.listview_options);
+        optionsListview = (MyListView) findViewById(R.id.listview_options);
         SelectionAdapter adapter = new SelectionAdapter(this, question.options);
         optionsListview.setAdapter(adapter);
         optionsListview.setOnItemClickListener(this);
@@ -230,6 +259,7 @@ public class QuestionsActivity extends NavigationDrawerActivity implements View.
         Question current = mQuestions.get(mQNo);
         setCurrentQuestion(current);
         showChoice(current);
+        enableCheckButton(!current.isVerified() && current.isAnswered());
         startTimer();
     }
 
@@ -246,6 +276,7 @@ public class QuestionsActivity extends NavigationDrawerActivity implements View.
 
         Question current = mQuestions.get(mQNo);
         current.setSelectedChoice(i);
+        enableCheckButton(!current.isVerified() && current.isAnswered());
     }
 
     public class WebAppInterface {

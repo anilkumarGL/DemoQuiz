@@ -31,8 +31,10 @@ public class Api {
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
+            mInStream = null;
         } catch (IOException e) {
             e.printStackTrace();
+            mInStream = null;
         }
         return mInStream;
     }

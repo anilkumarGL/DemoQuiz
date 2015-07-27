@@ -204,6 +204,16 @@
                             android:text="NEXT"
                             android:background="@color/ash_black"
                             android:textColor="@android:color/white"/>
+
+                        <Button
+                            android:id="@+id/check"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="CHECK"
+                            android:background="@color/ash_black"
+                            android:textColor="@android:color/white"
+                            android:alpha="0.4"/>
                     </RelativeLayout>
                 </RelativeLayout>
                 <include android:id="@+id/result_page"

@@ -23,6 +23,7 @@ public class SelectionAdapter extends BaseAdapter {
     private List<String> mItems;
     private Context mContext;
     private int mSelection=-1;
+    private boolean mVerify, mIsRight;
     private File IMG_DOWNLOAD_DIR;
 
     public SelectionAdapter(Context context, List<String> items) {
@@ -34,6 +35,11 @@ public class SelectionAdapter extends BaseAdapter {
 
     public void setSelectedItemPosition(int pos) {
         mSelection = pos;
+    }
+
+    public void setVerify(boolean verify, boolean isRight) {
+        mVerify = verify;
+        mIsRight = isRight;
     }
 
     @Override
@@ -60,10 +66,13 @@ public class SelectionAdapter extends BaseAdapter {
             holder.item = (TextView) view.findViewById(R.id.item);
             holder.radioButton = (ImageView) view.findViewById(R.id.radioButton);
             holder.item_image = (ImageView) view.findViewById(R.id.item_image);
+            holder.item_correct = (ImageView) view.findViewById(R.id.item_correct);
+            holder.item_wrong = (ImageView) view.findViewById(R.id.item_wrong);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
         }
+
         String option = mItems.get(i);
         if (option.contains(IMG_DOWNLOAD_DIR.getAbsolutePath())) {
             Uri uri = Uri.fromFile(new File(option));
@@ -76,12 +85,14 @@ public class SelectionAdapter extends BaseAdapter {
             holder.item_image.setVisibility(View.GONE);
         }
         holder.radioButton.setImageResource(mSelection == i ? R.drawable.radio_button_enabled : R.drawable.radio_button_disabled);
+        holder.item_correct.setVisibility(mSelection == i && mVerify && mIsRight ? View.VISIBLE : View.GONE);
+        holder.item_wrong.setVisibility(mSelection == i && mVerify && !mIsRight ? View.VISIBLE : View.GONE);
 
         return view;
     }
 
     private class ViewHolder {
         TextView item;
-        ImageView radioButton, item_image;
+        ImageView radioButton, item_image, item_correct, item_wrong;
     }
 }
