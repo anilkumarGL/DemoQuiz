@@ -215,4 +215,23 @@
         android:gravity="center_vertical"
         android:layout_below="@id/separator2"
         android:padding="15dp"/>
+
+    <Button
+        android:id="@+id/retake"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Retake Test"
+        android:layout_below="@id/info"
+        android:background="@color/ash_black"
+        android:padding="15dp"
+        android:textColor="@android:color/white"
+        android:gravity="center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+    <View
+        android:id="@+id/separator3"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_alignTop="@id/retake"
+        android:background="@android:color/holo_orange_dark"/>
 </RelativeLayout>

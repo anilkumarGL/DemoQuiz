@@ -2,6 +2,7 @@ package com.intimation.demoquiz;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -48,11 +49,13 @@ public class QuestionsActivity extends NavigationDrawerActivity implements View.
     WebView webView;
     int num1, num2, num3;
     private File IMG_DOWNLOAD_DIR;
+    private boolean isResultPageShown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_qpage);
+        isResultPageShown = false;
 
         IMG_DOWNLOAD_DIR = getExternalFilesDir(null) != null ? getExternalFilesDir(null) : getCacheDir();
         mQNo = 0;
@@ -69,7 +72,10 @@ public class QuestionsActivity extends NavigationDrawerActivity implements View.
 
     @Override
     public void onBackPressed() {
-        logout();
+        if (!isResultPageShown)
+            exitTest();
+        else
+            finish();
     }
 
     private void getQuestionsFromServer() {
@@ -149,8 +155,12 @@ public class QuestionsActivity extends NavigationDrawerActivity implements View.
     }
 
     private void showResults() {
+        isResultPageShown = true;
         findViewById(R.id.qpage).setVisibility(View.GONE);
+        findViewById(R.id.control_bar).setVisibility(View.GONE);
+        findViewById(R.id.separator3).setVisibility(View.GONE);
         findViewById(R.id.result_page).setVisibility(View.VISIBLE);
+        findViewById(R.id.retake).setOnClickListener(this);
 
         ((TextView)findViewById(R.id.total_q)).setText("" + mQuestions.size());
 
@@ -204,17 +214,7 @@ public class QuestionsActivity extends NavigationDrawerActivity implements View.
                 break;
 
             case R.id.finish:
-                new AlertDialog.Builder(this)
-                        .setTitle("Confirm Exit")
-                        .setMessage("Are you sure you want to exit?")
-                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                timeUp();
-                            }
-                        })
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .show();
+                exitTest();
                 break;
 
             case R.id.check:
@@ -229,7 +229,30 @@ public class QuestionsActivity extends NavigationDrawerActivity implements View.
                 enableCheckButton(!current.isVerified() && current.isAnswered());
                 break;
 
+            case R.id.retake:
+                finish();
+                showQuestionsScreen();
+                break;
         }
+    }
+
+    private void exitTest() {
+        new AlertDialog.Builder(this)
+                .setTitle("Confirm Exit")
+                .setMessage("Are you sure you want to exit?")
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        timeUp();
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
+    }
+
+    private void showQuestionsScreen() {
+        Intent i = new Intent(this, QuestionsActivity.class);
+        startActivity(i);
     }
 
     private void verify(Question current) {

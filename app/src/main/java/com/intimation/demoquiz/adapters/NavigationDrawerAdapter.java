@@ -31,7 +31,6 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
         int type;
         TextView item;
         TextView name, email;
-        Button logout;
         ImageView pic, icon;
 
         public ViewHolder(View itemView, int viewType) {
@@ -44,9 +43,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
             } else {
                 name = (TextView) itemView.findViewById(R.id.name);
                 email = (TextView) itemView.findViewById(R.id.email);
-                logout = (Button) itemView.findViewById(R.id.header_logout);
                 pic = (ImageView) itemView.findViewById(R.id.profile_pic);
-                logout.setOnClickListener(this);
             }
             type = viewType;
         }

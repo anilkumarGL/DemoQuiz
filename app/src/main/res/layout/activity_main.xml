@@ -3,89 +3,109 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <ImageView
+    <RelativeLayout
         android:id="@+id/splash_screen"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:src="@drawable/splash"/>
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:src="@drawable/splash"/>
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="eKalavya4G"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold|italic"
+            android:layout_centerInParent="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Med/Engg entrance self-learner"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textStyle="italic"
+            android:layout_centerInParent="true"
+            android:layout_below="@id/title"/>
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/login_screen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="50dp"
         android:background="@drawable/login_bg"
-        android:gravity="center"
         android:visibility="gone">
-        <RelativeLayout
-            android:id="@+id/username_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/icon_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:src="@drawable/ic_username"
-                android:layout_centerVertical="true"/>
-            <EditText
-                android:id="@+id/username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/icon_username"
-                android:background="@color/transparent_white"
-                android:inputType="text"
-                android:hint="Username"
-                android:padding="8dp"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/password_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/username_layout"
-            android:layout_marginTop="@dimen/activity_vertical_margin">
-
-            <ImageView
-                android:id="@+id/icon_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:src="@drawable/ic_password"
-                android:layout_centerVertical="true"/>
-            <EditText
-                android:id="@+id/password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/icon_password"
-                android:background="@color/transparent_white"
-                android:inputType="textPassword"
-                android:hint="Password"
-                android:padding="8dp"/>
-        </RelativeLayout>
-
-        <Button
-            android:id="@+id/button_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/password_layout"
-            android:text="LOGIN"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:textColor="@android:color/white"
-            android:background="@color/ash_black"
-            android:paddingLeft="@dimen/activity_vertical_margin"
-            android:paddingRight="@dimen/activity_vertical_margin"
-            android:layout_alignParentRight="true"/>
 
         <TextView
-            android:id="@+id/forgot_password"
-            android:layout_width="wrap_content"
+            android:id="@+id/bottom_text"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Forgot Password?"
+            android:layout_alignParentBottom="true"
+            android:text="Powered by www.qppacket .com\nPioneers of Online Entrance Coaching"
             android:textColor="@android:color/white"
-            android:layout_alignBaseline="@id/button_login"
-            android:layout_marginLeft="30dp"/>
+            android:lineSpacingMultiplier="1.2"
+            android:background="@color/ash_black"
+            android:gravity="center"
+            android:padding="8dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="15dp">
+            <Button
+                android:id="@+id/practice_exam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Attend Practice Exam"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:padding="20dp"
+                android:background="@color/ash_black"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/ash_black"
+                android:backgroundTint="@color/transparent_white"
+                android:layout_marginBottom="15dp"/>
+            <TextView
+                android:id="@+id/practice_exam_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="for week Jul-06"
+                android:background="@color/ash_black"
+                android:layout_alignRight="@id/practice_exam"
+                android:textColor="@android:color/white"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:padding="2dp"
+                android:layout_alignBottom="@id/practice_exam"/>
+
+            <TextView
+                android:id="@+id/entrance_news"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Entrance News"
+                android:background="@color/transparent_white"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:padding="5dp"
+                android:layout_below="@id/practice_exam"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="15dp"
+                />
+
+            <TextView
+                android:id="@+id/why_ekalvya"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Why eKalavya?"
+                android:background="@color/transparent_white"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:padding="5dp"
+                android:layout_below="@id/practice_exam"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="15dp"
+                />
+        </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

@@ -103,11 +103,6 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Navig
     @Override
     public void onItemClick(View v, int position) {
         switch (position) {
-            case 0:
-                // Logout
-                logout();
-                break;
-
             case 1:
                 if (mPrev != position) {
                     finish();

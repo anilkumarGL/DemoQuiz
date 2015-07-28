@@ -33,7 +33,7 @@ public class Data {
     }
 
     public String getUsername() {
-        return mUsername.isEmpty() ? "Username" : mUsername;
+        return mUsername == null || mUsername.isEmpty() ? "Username" : mUsername;
     }
 
     public void setCurrentQuestion(Question q) {
