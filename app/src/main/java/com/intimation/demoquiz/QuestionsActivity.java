@@ -67,7 +67,12 @@ public class QuestionsActivity extends NavigationDrawerActivity implements View.
         findViewById(R.id.next).setOnClickListener(this);
         initializeNavigationDrawer();
         updateTimerText("--:--:--");
-        getQuestionsFromServer();
+        if (getIntent() != null
+                && getIntent().getBooleanExtra("is_downloaded", false)) {
+            startTest();
+        } else {
+            getQuestionsFromServer();
+        }
     }
 
     @Override
@@ -161,6 +166,7 @@ public class QuestionsActivity extends NavigationDrawerActivity implements View.
         findViewById(R.id.separator3).setVisibility(View.GONE);
         findViewById(R.id.result_page).setVisibility(View.VISIBLE);
         findViewById(R.id.retake).setOnClickListener(this);
+        findViewById(R.id.detailed).setOnClickListener(this);
 
         ((TextView)findViewById(R.id.total_q)).setText("" + mQuestions.size());
 
@@ -233,6 +239,12 @@ public class QuestionsActivity extends NavigationDrawerActivity implements View.
                 finish();
                 showQuestionsScreen();
                 break;
+
+            case R.id.detailed:
+                Intent i = new Intent(this, WebviewXmlActivity.class);
+                i.putExtra("url", Utils.URL_DETAILED_ANSWERS);
+                startActivity(i);
+                break;
         }
     }
 
@@ -278,6 +290,10 @@ public class QuestionsActivity extends NavigationDrawerActivity implements View.
 
     @Override
     public void onSuccess() {
+        startTest();
+    }
+
+    private void startTest() {
         mQuestions = Data.getInstance().getAllQuestions();
         Question current = mQuestions.get(mQNo);
         setCurrentQuestion(current);

@@ -9,14 +9,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.intimation.demoquiz.model.Data;
 import com.intimation.demoquiz.model.Question;
+import com.intimation.demoquiz.model.Store;
+import com.intimation.demoquiz.rest.OnPostExecuteListener;
+import com.intimation.demoquiz.rest.RestApi;
+import com.intimation.demoquiz.utils.Utils;
 
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends Activity implements View.OnClickListener, OnPostExecuteListener {
 
     private View mLogin, mSplash;
+    private boolean isDownloaded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +36,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         why.setOnClickListener(this);
         news.setOnClickListener(this);
         why.setPaintFlags(why.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
-        news.setPaintFlags(why.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+        news.setPaintFlags(why.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         Handler h = new Handler();
         h.postDelayed(new Runnable() {
@@ -42,6 +48,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         // Show signup - Login screen
                         mSplash.setVisibility(View.GONE);
                         mLogin.setVisibility(View.VISIBLE);
+                        getQuestionsFromServer();
                     }
                 });
             }
@@ -54,11 +61,44 @@ public class MainActivity extends Activity implements View.OnClickListener {
             case R.id.practice_exam:
                 showQuestionsScreen();
                 break;
+
+            case R.id.why_ekalvya:
+            case R.id.entrance_news:
+                showWebXmlView(v.getId());
+                break;
         }
+    }
+
+    private void getQuestionsFromServer() {
+        RestApi api = new RestApi(this);
+        api.setMessage("Getting Questions...");
+        api.setPostExecuteListener(this);
+        api.get(Utils.URL_VIEW_QUESTION);
     }
 
     private void showQuestionsScreen() {
         Intent i = new Intent(this, QuestionsActivity.class);
+        i.putExtra("is_downloaded", isDownloaded);
         startActivity(i);
+    }
+
+    private void showWebXmlView(int id) {
+        Intent i = new Intent(this, WebviewXmlActivity.class);
+        i.putExtra("url", id == R.id.why_ekalvya ? Utils.URL_WHY_EKALAVYA : Utils.URL_ENTRANCE_NEWS);
+        startActivity(i);
+    }
+
+    @Override
+    public void onSuccess() {
+        isDownloaded = true;
+        Store store = new Store(this);
+        ((TextView)findViewById(R.id.practice_exam_version))
+                .setText("for week " + store.getStore().getString(RestApi.TAG_XML_VERSION, "<no data>"));
+    }
+
+    @Override
+    public void onFailure() {
+        isDownloaded = false;
+        Toast.makeText(this, "Failure: Getting questions from server.", Toast.LENGTH_SHORT).show();
     }
 }

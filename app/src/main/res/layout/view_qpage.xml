@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ekalavya4G"
+            android:text="eKalavya4G"
             android:textColor="@android:color/white"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_alignParentRight="true"
@@ -175,7 +175,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="5dp"
-                                    android:text="1 of 94"
+                                    android:text=""
                                     android:textColor="@android:color/black"/>
                             </LinearLayout>
 

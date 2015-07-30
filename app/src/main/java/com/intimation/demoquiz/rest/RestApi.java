@@ -31,7 +31,7 @@ import java.util.Set;
  * Created by gorillalogic on 6/12/15.
  */
 public class RestApi {
-    private static final String TAG_XML_VERSION = "xmlversion";
+    public static final String TAG_XML_VERSION = "xmlversion";
     private static final String DOWNLOAD_PENDING_URLS = "download_pending_urls";
     private static final String OFFLINE_QUESTIONS = "offline_questions";
 
