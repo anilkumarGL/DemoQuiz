@@ -9,8 +9,8 @@ public class Utils {
 
 //    public static final String URL_VIEW_QUESTION = "http://www.qppacket.com/StudentPages/qpPacketDailyTest.xml";
     public static final String URL_VIEW_QUESTION = "http://www.qppacket.com/mobile/QPPacketDailyTest.xml";
-    public static final String URL_WHY_EKALAVYA = "http://www.qppacket.com/mobile/WhyEkalaya.xml";
-    public static final String URL_ENTRANCE_NEWS = "http://www.qppacket.com/mobile/EntranceNews.xml";
+    public static final String URL_WHY_EKALAVYA = "http://qppacket.com/mobile/Whyekalavya.html";
+    public static final String URL_ENTRANCE_NEWS = "http://qppacket.com/mobile/Entrancenews.html";
     public static final String URL_DETAILED_ANSWERS = "http://www.qppacket.com/mobile/showAnswers.aspx";
 
     public static final String PREFIX_IMAGE = "http://qppacket.com/QPIMages/";

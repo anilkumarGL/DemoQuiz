@@ -90,7 +90,7 @@ public class RestApi {
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
                 if (mDownloadIssued != mDownloadSuccess)
-                    mProgressDialog.setMessage("Downloading...");
+                    mProgressDialog.setMessage("Downloading latest question paper...");
                 if (mExecuteListener != null) {
                     if (mIsParseSuccessfull == true)
                         if (isDownloadComplete())
@@ -259,7 +259,7 @@ public class RestApi {
                         mDownloadIssued++;
                     } else {
                         temp = split[i].split(", ");
-                        if (temp[0].contains(",oc,"))
+                        if (temp[0].contains(",oc"))
                             question.correctch = i - 2;
                         question.options.add(temp[1].trim());
                     }

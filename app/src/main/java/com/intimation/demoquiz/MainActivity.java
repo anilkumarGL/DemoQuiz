@@ -59,7 +59,10 @@ public class MainActivity extends Activity implements View.OnClickListener, OnPo
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.practice_exam:
-                showQuestionsScreen();
+                if (isDownloaded)
+                    showQuestionsScreen();
+                else
+                    Toast.makeText(this, "No Internet.", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.why_ekalvya:
