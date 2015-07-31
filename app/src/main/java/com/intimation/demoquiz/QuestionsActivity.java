@@ -1,5 +1,6 @@
 package com.intimation.demoquiz;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -35,7 +36,7 @@ import java.util.TimerTask;
 /**
  * Created by gorillalogic on 7/1/15.
  */
-public class QuestionsActivity extends NavigationDrawerActivity implements View.OnClickListener, OnPostExecuteListener, AdapterView.OnItemClickListener {
+public class QuestionsActivity extends Activity implements View.OnClickListener, OnPostExecuteListener, AdapterView.OnItemClickListener {
 
     private List<Question> mQuestions;
     private TextView mTimeLeftValue;
@@ -65,7 +66,7 @@ public class QuestionsActivity extends NavigationDrawerActivity implements View.
         check_button.setOnClickListener(this);
         findViewById(R.id.finish).setOnClickListener(this);
         findViewById(R.id.next).setOnClickListener(this);
-        initializeNavigationDrawer();
+//        initializeNavigationDrawer();
         updateTimerText("--:--:--");
         if (getIntent() != null
                 && getIntent().getBooleanExtra("is_downloaded", false)) {

@@ -47,7 +47,7 @@
             android:lineSpacingMultiplier="1.2"
             android:background="@color/ash_black"
             android:gravity="center"
-            android:padding="8dp"/>
+            android:padding="5dp"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -62,16 +62,15 @@
                 android:text="Attend Practice Exam"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:padding="20dp"
-                android:background="@color/ash_black"
+                android:background="@color/transparent_white"
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/ash_black"
-                android:backgroundTint="@color/transparent_white"
                 />
             <TextView
                 android:id="@+id/practice_exam_version"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="for week Jul-06"
+                android:text="for week "
                 android:background="@color/ash_black_light"
                 android:layout_alignRight="@id/practice_exam"
                 android:textColor="@android:color/white"
