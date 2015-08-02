@@ -22,7 +22,7 @@ import com.intimation.demoquiz.utils.Utils;
 public class MainActivity extends Activity implements View.OnClickListener, OnPostExecuteListener {
 
     private View mLogin, mSplash;
-    private boolean isDownloaded;
+    private boolean isDownloaded, isSplash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnPo
         why.setPaintFlags(why.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
         news.setPaintFlags(why.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
+        isSplash = true;
         Handler h = new Handler();
         h.postDelayed(new Runnable() {
             @Override
@@ -56,13 +57,22 @@ public class MainActivity extends Activity implements View.OnClickListener, OnPo
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (!isDownloaded && !isSplash) {
+            getQuestionsFromServer();
+        }
+        isSplash = false;
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.practice_exam:
                 if (isDownloaded)
                     showQuestionsScreen();
                 else
-                    Toast.makeText(this, "No Internet.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "No Internet. App needs to connect to server to download questions for the first time.", Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.why_ekalvya:
@@ -93,15 +103,14 @@ public class MainActivity extends Activity implements View.OnClickListener, OnPo
 
     @Override
     public void onSuccess() {
-        isDownloaded = true;
         Store store = new Store(this);
+        isDownloaded = store.getStore().contains(RestApi.OFFLINE_QUESTIONS);
         ((TextView)findViewById(R.id.practice_exam_version))
                 .setText("for week " + store.getStore().getString(RestApi.TAG_XML_VERSION, "<no data>"));
     }
 
     @Override
     public void onFailure() {
-        isDownloaded = false;
         Toast.makeText(this, "Failure: Getting questions from server.", Toast.LENGTH_SHORT).show();
     }
 }

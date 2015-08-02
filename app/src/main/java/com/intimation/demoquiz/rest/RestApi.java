@@ -33,7 +33,7 @@ import java.util.Set;
 public class RestApi {
     public static final String TAG_XML_VERSION = "xmlversion";
     private static final String DOWNLOAD_PENDING_URLS = "download_pending_urls";
-    private static final String OFFLINE_QUESTIONS = "offline_questions";
+    public static final String OFFLINE_QUESTIONS = "offline_questions";
 
     private Activity mActivity;
     private ProgressDialog mProgressDialog;
